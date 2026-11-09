@@ -102,6 +102,7 @@ export const ResumeProvider: React.FC<{ children: ReactNode }> = ({ children }) 
   const [activeView, setActiveView] = useState<'landing' | 'builder'>('landing');
   const [isCustomizerOpen, setIsCustomizerOpen] = useState<boolean>(false);
   const [isCreatorModalOpen, setIsCreatorModalOpen] = useState<boolean>(false);
+  const [isATSModalOpen, setIsATSModalOpen] = useState<boolean>(false);
   const [isExportingPDF, setIsExportingPDF] = useState<boolean>(false);
   const [zoomLevel, setZoomLevel] = useState<number>(100);
 
@@ -164,6 +165,18 @@ export const ResumeProvider: React.FC<{ children: ReactNode }> = ({ children }) 
       ...prev,
       workExperience: prev.workExperience.filter((item) => item.id !== id),
     }));
+  };
+
+  const moveWorkExperience = (index: number, direction: 'up' | 'down') => {
+    setResumeData((prev) => {
+      const items = [...prev.workExperience];
+      const targetIndex = direction === 'up' ? index - 1 : index + 1;
+      if (targetIndex < 0 || targetIndex >= items.length) return prev;
+      const temp = items[index];
+      items[index] = items[targetIndex];
+      items[targetIndex] = temp;
+      return { ...prev, workExperience: items };
+    });
   };
 
   const addHighlight = (experienceId: string, highlight: string) => {
