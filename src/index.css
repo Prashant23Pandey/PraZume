@@ -1,0 +1,84 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html, body {
+    @apply h-full antialiased text-slate-800 bg-slate-50;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+
+  /* Custom subtle scrollbars */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-slate-300 rounded-full hover:bg-slate-400 transition-colors;
+  }
+}
+
+/* A4 Sheet Specific Styles */
+.a4-page {
+  width: 210mm;
+  min-height: 297mm;
+  box-sizing: border-box;
+  margin: 0 auto;
+  position: relative;
+  background-color: #ffffff;
+}
+
+/* Print Rules - Hide all navigation, sidebars, buttons and display only the clean resume */
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 0;
+  }
+
+  body {
+    background: #ffffff !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Hide entire UI except resume preview canvas */
+  header, nav, aside, footer, .no-print, button, .canvas-toolbar, .builder-sidebar {
+    display: none !important;
+  }
+
+  #root, main, .builder-container {
+    padding: 0 !important;
+    margin: 0 !important;
+    overflow: visible !important;
+    height: auto !important;
+    display: block !important;
+  }
+
+  .preview-wrapper {
+    overflow: visible !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    background: transparent !important;
+  }
+
+  .a4-page {
+    box-shadow: none !important;
+    border: none !important;
+    width: 100% !important;
+    min-height: 100% !important;
+    margin: 0 !important;
+    page-break-after: avoid;
+    page-break-inside: avoid;
+  }
+
+  .page-break-avoid {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+}
+
