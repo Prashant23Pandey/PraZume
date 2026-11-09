@@ -3,18 +3,26 @@ import jsPDF from 'jspdf';
 
 export interface PDFExportOptions {
   filename?: string;
-  quality?: number; // scale factor, default 2
+  quality?: number; // scale factor, default 2 for high DPI clarity
 }
 
 /**
  * Programmatically exports the live resume canvas element to an A4 PDF document.
- * Utilizes high-DPI canvas capture and multi-page splitting logic.
+ * Adheres strictly to:
+ * - Target element: #resume-preview-canvas
+ * - Quality: JPEG 0.98
+ * - HTML2Canvas scale: 2 (high DPI vector print clarity)
+ * - useCORS: true (for rendering photos and cross-origin icons)
+ * - jsPDF: format 'a4', orientation 'portrait', margin: 0
  */
 export async function downloadResumePDF(
-  elementId: string = 'resume-preview-document',
+  elementId: string = 'resume-preview-canvas',
   options: PDFExportOptions = {}
 ): Promise<boolean> {
-  const element = document.getElementById(elementId);
+  let element = document.getElementById(elementId);
+  if (!element) {
+    element = document.getElementById('resume-preview-document');
+  }
   if (!element) {
     console.error(`Element with id "${elementId}" not found for PDF export.`);
     return false;
@@ -24,7 +32,6 @@ export async function downloadResumePDF(
   const scale = options.quality || 2;
 
   try {
-    // Render the element to a high-resolution canvas
     const canvas = await html2canvas(element, {
       scale: scale,
       useCORS: true,
@@ -36,7 +43,6 @@ export async function downloadResumePDF(
 
     const imgData = canvas.toDataURL('image/jpeg', 0.98);
 
-    // Standard A4 dimensions in mm: 210 x 297
     const pdf = new jsPDF({
       orientation: 'portrait',
       unit: 'mm',
@@ -46,18 +52,18 @@ export async function downloadResumePDF(
     const pdfWidth = pdf.internal.pageSize.getWidth();
     const pdfHeight = pdf.internal.pageSize.getHeight();
 
-    // Calculate image dimensions to fit A4 width
+    // Scale to exact A4 page width with 0 margin
     const imgWidth = pdfWidth;
     const imgHeight = (canvas.height * pdfWidth) / canvas.width;
 
     let heightLeft = imgHeight;
     let position = 0;
 
-    // Add first page
+    // Render first page
     pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight, undefined, 'FAST');
     heightLeft -= pdfHeight;
 
-    // Multi-page loop if content spans beyond a single A4 sheet
+    // Split across additional pages if content exceeds standard A4 height
     while (heightLeft > 0) {
       position = heightLeft - imgHeight;
       pdf.addPage();
@@ -68,17 +74,13 @@ export async function downloadResumePDF(
     pdf.save(filename);
     return true;
   } catch (error) {
-    console.error('Failed to generate PDF via canvas:', error);
-    // Fallback: trigger print dialog which formats with print CSS
+    console.error('Failed to generate high-DPI PDF via canvas:', error);
+    // Fallback: trigger browser print dialog with @media print stylesheet
     window.print();
     return false;
   }
 }
 
-/**
- * Triggers standard browser print dialog which utilizes @media print styles
- */
 export function printResume(): void {
   window.print();
 }
-

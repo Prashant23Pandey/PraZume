@@ -48,31 +48,39 @@ export const Hero: React.FC = () => {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Top Notification Badge */}
-        <div className="flex justify-center mb-6">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white border border-slate-200 shadow-xs hover:border-brand-300 transition-colors">
-            <span className="flex h-2 w-2 relative">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-brand-600"></span>
+        <div className="flex flex-col items-center justify-center gap-2 mb-6">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-purple-50 border border-purple-200/80 shadow-xs">
+            <span className="w-2 h-2 rounded-full bg-purple-600 animate-pulse"></span>
+            <span className="text-[11px] font-sans font-bold tracking-widest uppercase text-purple-800">
+              100% Client-Side Privacy · No Account Required
             </span>
-            <span className="text-xs font-semibold text-slate-700">
-              The 100% Client-Side Alternative to FlowCV & Novoresume
+          </div>
+
+          {/* Calligraphic Script Flourish (Photo 2 Aesthetic) */}
+          <div className="inline-flex items-center gap-2 pt-1">
+            <span className="font-serif font-bold text-slate-800 text-base sm:text-lg tracking-tight">
+              Let Your Career
             </span>
-            <span className="hidden sm:inline text-slate-400">|</span>
-            <span className="hidden sm:inline text-xs font-bold text-brand-600">No Account Required</span>
+            <span className="font-script text-2xl sm:text-3xl text-purple-600">
+              Be Free.
+            </span>
           </div>
         </div>
 
-        {/* Main Headline */}
+        {/* Main Headline (Photo 1 & 3 Aesthetic: Playfair Display Bold + Italic Purple Accent) */}
         <div className="text-center max-w-4xl mx-auto">
-          <h1 className="text-4xl sm:text-6xl lg:text-[68px] font-black text-slate-900 tracking-tight leading-[1.08] mb-6">
-            Build a Job-Winning Resume for Free{' '}
-            <span className="bg-gradient-to-r from-brand-600 via-indigo-600 to-sky-600 bg-clip-text text-transparent block sm:inline">
+          <h1 className="text-4xl sm:text-6xl lg:text-[70px] font-serif font-black text-slate-900 tracking-tight leading-[1.08] mb-6">
+            Build a Job-Winning{' '}
+            <span className="italic font-normal text-purple-600 block sm:inline">
+              Resume for Free
+            </span>
+            <span className="block text-2xl sm:text-4xl lg:text-[44px] font-bold text-slate-800 mt-2 font-serif">
               — No Subscription Required.
             </span>
           </h1>
 
           {/* Sub-headline */}
-          <p className="text-base sm:text-xl text-slate-600 font-normal leading-relaxed max-w-3xl mx-auto mb-10">
+          <p className="font-sans text-base sm:text-xl text-slate-600 font-normal leading-relaxed max-w-3xl mx-auto mb-10">
             Create professional, ATS-friendly resumes in minutes. 100% free forever, unlimited PDF downloads, and total data privacy with zero account registration.
           </p>
 

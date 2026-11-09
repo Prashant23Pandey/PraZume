@@ -12,8 +12,10 @@ export const Footer: React.FC = () => {
           {/* Col 1: Brand & Philosophy */}
           <div className="md:col-span-5 space-y-4">
             <div className="flex items-center gap-2.5">
-              <span className="text-2xl font-black text-white tracking-tight">PraZume</span>
-              <span className="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-emerald-950 text-emerald-400 border border-emerald-800/60">
+              <span className="text-2xl font-serif font-black text-white tracking-tight">
+                Pra<span className="italic font-normal text-purple-400">Zume</span>
+              </span>
+              <span className="px-2 py-0.5 rounded text-[10px] font-sans font-bold uppercase tracking-widest bg-emerald-950 text-emerald-400 border border-emerald-800/60">
                 100% Free
               </span>
             </div>

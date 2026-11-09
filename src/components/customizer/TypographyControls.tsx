@@ -8,9 +8,9 @@ export const TypographyControls: React.FC = () => {
   const { linkStyle } = customization.styling;
 
   const fontOptions: { id: FontFamily; label: string; sample: string; cssClass: string }[] = [
-    { id: 'Sans', label: 'Modern Sans', sample: 'Inter (Default)', cssClass: 'font-sans' },
-    { id: 'Serif', label: 'Executive Serif', sample: 'Merriweather', cssClass: 'font-serif' },
-    { id: 'Mono', label: 'Tech Mono', sample: 'JetBrains Mono', cssClass: 'font-mono' },
+    { id: 'Playfair Display', label: 'Playfair Display', sample: 'Editorial Serif', cssClass: 'font-serif' },
+    { id: 'Inter', label: 'Modern Sans', sample: 'Plus Jakarta Sans', cssClass: 'font-sans' },
+    { id: 'Source Code Pro', label: 'Tech Mono', sample: 'Source Code Pro', cssClass: 'font-mono' },
   ];
 
   return (

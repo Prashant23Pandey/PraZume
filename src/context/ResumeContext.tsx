@@ -12,7 +12,7 @@ import {
   ActiveSection,
   SkillLevel,
 } from '../types/resume';
-import { defaultResumeData, defaultCustomization } from '../utils/defaultData';
+import { emptyResumeData, sampleResumeData, defaultCustomization } from '../utils/defaultData';
 import { loadSavedResume, saveResume, clearSavedResume } from '../utils/storage';
 import { downloadResumePDF } from '../utils/pdfGenerator';
 
@@ -24,6 +24,7 @@ interface ResumeContextType {
   isCustomizerOpen: boolean;
   isCreatorModalOpen: boolean;
   isATSModalOpen: boolean;
+  isCoverLetterModalOpen: boolean;
   isExportingPDF: boolean;
   zoomLevel: number;
 
@@ -33,6 +34,7 @@ interface ResumeContextType {
   setIsCustomizerOpen: (open: boolean) => void;
   setIsCreatorModalOpen: (open: boolean) => void;
   setIsATSModalOpen: (open: boolean) => void;
+  setIsCoverLetterModalOpen: (open: boolean) => void;
   setZoomLevel: (zoom: number | ((prev: number) => number)) => void;
 
   // Personal details
@@ -48,6 +50,7 @@ interface ResumeContextType {
   addHighlight: (experienceId: string, highlight: string) => void;
   updateHighlight: (experienceId: string, index: number, highlight: string) => void;
   removeHighlight: (experienceId: string, index: number) => void;
+  setHighlightsFromText: (experienceId: string, fullText: string) => void;
 
   // Education
   addEducation: () => void;
@@ -57,6 +60,7 @@ interface ResumeContextType {
   addEducationHighlight: (educationId: string, highlight: string) => void;
   updateEducationHighlight: (educationId: string, index: number, highlight: string) => void;
   removeEducationHighlight: (educationId: string, index: number) => void;
+  setEducationHighlightsFromText: (educationId: string, fullText: string) => void;
 
   // Skills
   addSkill: (category?: string) => void;
@@ -93,7 +97,6 @@ interface ResumeContextType {
 const ResumeContext = createContext<ResumeContextType | undefined>(undefined);
 
 export const ResumeProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  // Initial state from localStorage or default
   const [initialData] = useState(() => loadSavedResume());
   const [resumeData, setResumeData] = useState<ResumeData>(initialData.resumeData);
   const [customization, setCustomization] = useState<CustomizationSettings>(initialData.customization);
@@ -103,10 +106,11 @@ export const ResumeProvider: React.FC<{ children: ReactNode }> = ({ children }) 
   const [isCustomizerOpen, setIsCustomizerOpen] = useState<boolean>(false);
   const [isCreatorModalOpen, setIsCreatorModalOpen] = useState<boolean>(false);
   const [isATSModalOpen, setIsATSModalOpen] = useState<boolean>(false);
+  const [isCoverLetterModalOpen, setIsCoverLetterModalOpen] = useState<boolean>(false);
   const [isExportingPDF, setIsExportingPDF] = useState<boolean>(false);
   const [zoomLevel, setZoomLevel] = useState<number>(100);
 
-  // Auto-persist to localStorage on every state mutation
+  // Auto-sync state mutations to localStorage
   useEffect(() => {
     saveResume(resumeData, customization);
   }, [resumeData, customization]);
@@ -215,6 +219,19 @@ export const ResumeProvider: React.FC<{ children: ReactNode }> = ({ children }) 
     }));
   };
 
+  const setHighlightsFromText = (experienceId: string, fullText: string) => {
+    const lines = fullText
+      .split('\n')
+      .map((l) => l.replace(/^[\s•\-*]+/, '').trim())
+      .filter(Boolean);
+    setResumeData((prev) => ({
+      ...prev,
+      workExperience: prev.workExperience.map((item) =>
+        item.id === experienceId ? { ...item, highlights: lines.length > 0 ? lines : [''] } : item
+      ),
+    }));
+  };
+
   // Education
   const addEducation = () => {
     const newEdu: Education = {
@@ -248,6 +265,18 @@ export const ResumeProvider: React.FC<{ children: ReactNode }> = ({ children }) 
       ...prev,
       education: prev.education.filter((item) => item.id !== id),
     }));
+  };
+
+  const moveEducation = (index: number, direction: 'up' | 'down') => {
+    setResumeData((prev) => {
+      const items = [...prev.education];
+      const targetIndex = direction === 'up' ? index - 1 : index + 1;
+      if (targetIndex < 0 || targetIndex >= items.length) return prev;
+      const temp = items[index];
+      items[index] = items[targetIndex];
+      items[targetIndex] = temp;
+      return { ...prev, education: items };
+    });
   };
 
   const addEducationHighlight = (educationId: string, highlight: string) => {
@@ -286,12 +315,26 @@ export const ResumeProvider: React.FC<{ children: ReactNode }> = ({ children }) 
     }));
   };
 
+  const setEducationHighlightsFromText = (educationId: string, fullText: string) => {
+    const lines = fullText
+      .split('\n')
+      .map((l) => l.replace(/^[\s•\-*]+/, '').trim())
+      .filter(Boolean);
+    setResumeData((prev) => ({
+      ...prev,
+      education: prev.education.map((item) =>
+        item.id === educationId ? { ...item, highlights: lines } : item
+      ),
+    }));
+  };
+
   // Skills
   const addSkill = (category: string = 'General') => {
     const newSkill: SkillItem = {
       id: uuidv4(),
       name: '',
       level: 'Advanced' as SkillLevel,
+      rating: 4,
       category,
     };
     setResumeData((prev) => ({
@@ -314,6 +357,18 @@ export const ResumeProvider: React.FC<{ children: ReactNode }> = ({ children }) 
       ...prev,
       skills: prev.skills.filter((item) => item.id !== id),
     }));
+  };
+
+  const moveSkill = (index: number, direction: 'up' | 'down') => {
+    setResumeData((prev) => {
+      const items = [...prev.skills];
+      const targetIndex = direction === 'up' ? index - 1 : index + 1;
+      if (targetIndex < 0 || targetIndex >= items.length) return prev;
+      const temp = items[index];
+      items[index] = items[targetIndex];
+      items[targetIndex] = temp;
+      return { ...prev, skills: items };
+    });
   };
 
   // Custom Sections
@@ -352,6 +407,18 @@ export const ResumeProvider: React.FC<{ children: ReactNode }> = ({ children }) 
       ...prev,
       customSections: prev.customSections.filter((sec) => sec.id !== sectionId),
     }));
+  };
+
+  const moveCustomSection = (index: number, direction: 'up' | 'down') => {
+    setResumeData((prev) => {
+      const items = [...prev.customSections];
+      const targetIndex = direction === 'up' ? index - 1 : index + 1;
+      if (targetIndex < 0 || targetIndex >= items.length) return prev;
+      const temp = items[index];
+      items[index] = items[targetIndex];
+      items[targetIndex] = temp;
+      return { ...prev, customSections: items };
+    });
   };
 
   const addCustomSectionEntry = (sectionId: string) => {
@@ -403,6 +470,22 @@ export const ResumeProvider: React.FC<{ children: ReactNode }> = ({ children }) 
     }));
   };
 
+  const moveCustomSectionEntry = (sectionId: string, entryIndex: number, direction: 'up' | 'down') => {
+    setResumeData((prev) => ({
+      ...prev,
+      customSections: prev.customSections.map((sec) => {
+        if (sec.id !== sectionId) return sec;
+        const entries = [...sec.entries];
+        const targetIndex = direction === 'up' ? entryIndex - 1 : entryIndex + 1;
+        if (targetIndex < 0 || targetIndex >= entries.length) return sec;
+        const temp = entries[entryIndex];
+        entries[entryIndex] = entries[targetIndex];
+        entries[targetIndex] = temp;
+        return { ...sec, entries };
+      }),
+    }));
+  };
+
   // Customization setters
   const updateLayout = (layout: Partial<CustomizationSettings['layout']>) => {
     setCustomization((prev) => ({
@@ -438,29 +521,12 @@ export const ResumeProvider: React.FC<{ children: ReactNode }> = ({ children }) 
 
   // Bulk resets
   const resetToDefault = () => {
-    setResumeData(defaultResumeData);
+    setResumeData(sampleResumeData);
     setCustomization(defaultCustomization);
   };
 
   const clearAll = () => {
-    setResumeData({
-      personalDetails: {
-        fullName: '',
-        jobTitle: '',
-        email: '',
-        phone: '',
-        location: '',
-        website: '',
-        github: '',
-        linkedin: '',
-        summary: '',
-        photoUrl: '',
-      },
-      workExperience: [],
-      education: [],
-      skills: [],
-      customSections: [],
-    });
+    setResumeData(emptyResumeData);
     clearSavedResume();
   };
 
@@ -476,7 +542,7 @@ export const ResumeProvider: React.FC<{ children: ReactNode }> = ({ children }) 
       const fileName = `${(resumeData.personalDetails.fullName || 'resume')
         .toLowerCase()
         .replace(/\s+/g, '_')}_resume.pdf`;
-      await downloadResumePDF('resume-preview-document', { filename: fileName, quality: 2 });
+      await downloadResumePDF('resume-preview-canvas', { filename: fileName, quality: 2 });
     } finally {
       setIsExportingPDF(false);
     }
@@ -491,6 +557,8 @@ export const ResumeProvider: React.FC<{ children: ReactNode }> = ({ children }) 
         activeView,
         isCustomizerOpen,
         isCreatorModalOpen,
+        isATSModalOpen,
+        isCoverLetterModalOpen,
         isExportingPDF,
         zoomLevel,
 
@@ -498,6 +566,8 @@ export const ResumeProvider: React.FC<{ children: ReactNode }> = ({ children }) 
         setActiveView,
         setIsCustomizerOpen,
         setIsCreatorModalOpen,
+        setIsATSModalOpen,
+        setIsCoverLetterModalOpen,
         setZoomLevel,
 
         updatePersonalDetails,
@@ -507,27 +577,34 @@ export const ResumeProvider: React.FC<{ children: ReactNode }> = ({ children }) 
         addWorkExperience,
         updateWorkExperience,
         removeWorkExperience,
+        moveWorkExperience,
         addHighlight,
         updateHighlight,
         removeHighlight,
+        setHighlightsFromText,
 
         addEducation,
         updateEducation,
         removeEducation,
+        moveEducation,
         addEducationHighlight,
         updateEducationHighlight,
         removeEducationHighlight,
+        setEducationHighlightsFromText,
 
         addSkill,
         updateSkill,
         removeSkill,
+        moveSkill,
 
         addCustomSection,
         updateCustomSectionTitle,
         removeCustomSection,
+        moveCustomSection,
         addCustomSectionEntry,
         updateCustomSectionEntry,
         removeCustomSectionEntry,
+        moveCustomSectionEntry,
 
         updateLayout,
         updateTypography,
@@ -554,4 +631,3 @@ export const useResumeStore = (): ResumeContextType => {
   }
   return context;
 };
-

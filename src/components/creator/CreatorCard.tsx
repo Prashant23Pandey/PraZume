@@ -42,13 +42,13 @@ export const CreatorCard: React.FC = () => {
         {/* Right Side: Bio, Headings, Competencies & LinkedIn CTA */}
         <div className="md:col-span-7 text-left">
           {/* Top Pill Badge */}
-          <div className="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-semibold bg-[#f3e8ff] text-[#9333ea] border border-[#e9d5ff]/80 mb-3 sm:mb-4">
+          <div className="inline-flex items-center px-4 py-1.5 rounded-full text-[11px] font-sans font-bold tracking-widest uppercase bg-[#f3e8ff] text-[#9333ea] border border-[#e9d5ff]/80 mb-3 sm:mb-4">
             Computer Science & AI Engineer
           </div>
 
           {/* Main Serif Headline */}
           <h2 className="text-3xl sm:text-4xl lg:text-[42px] font-serif font-bold text-slate-900 tracking-tight leading-tight mb-4">
-            Meet Prashant Pandey
+            Meet <span className="italic font-normal text-purple-600">Prashant Pandey</span>
           </h2>
 
           {/* Narrative Biography */}
@@ -80,7 +80,7 @@ export const CreatorCard: React.FC = () => {
               href="https://linkedin.com/in/prashantpandey"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2.5 px-6 py-3 rounded-2xl bg-[#0077b5] hover:bg-[#006097] text-white text-xs sm:text-sm font-bold shadow-md shadow-sky-600/20 hover:shadow-lg transition-all transform hover:-translate-y-0.5"
+              className="inline-flex items-center gap-2.5 px-6 py-3 rounded-full bg-[#0077b5] hover:bg-[#006097] text-white text-xs sm:text-sm font-bold shadow-md shadow-sky-600/25 hover:shadow-lg transition-all transform hover:-translate-y-0.5"
             >
               <Linkedin className="w-4 h-4 fill-white" />
               <span>Connect on LinkedIn</span>
@@ -90,7 +90,7 @@ export const CreatorCard: React.FC = () => {
               href="https://github.com/prashantpandey"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-4 py-3 rounded-2xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs sm:text-sm font-semibold transition-colors"
+              className="inline-flex items-center gap-2 px-4 py-3 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs sm:text-sm font-semibold transition-colors"
             >
               <Github className="w-4 h-4" />
               <span>GitHub</span>
@@ -100,7 +100,7 @@ export const CreatorCard: React.FC = () => {
               href="https://prashantpandey.dev"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-4 py-3 rounded-2xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs sm:text-sm font-semibold transition-colors"
+              className="inline-flex items-center gap-2 px-4 py-3 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs sm:text-sm font-semibold transition-colors"
             >
               <Globe className="w-4 h-4 text-brand-600" />
               <span>Portfolio</span>
@@ -108,7 +108,7 @@ export const CreatorCard: React.FC = () => {
 
             <a
               href="mailto:contact@prashantpandey.dev"
-              className="inline-flex items-center gap-2 px-4 py-3 rounded-2xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs sm:text-sm font-semibold transition-colors"
+              className="inline-flex items-center gap-2 px-4 py-3 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs sm:text-sm font-semibold transition-colors"
             >
               <Mail className="w-4 h-4 text-rose-500" />
               <span>Get in Touch</span>

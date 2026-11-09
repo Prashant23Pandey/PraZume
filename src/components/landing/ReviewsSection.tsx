@@ -4,15 +4,15 @@ import { Star, Quote } from 'lucide-react';
 export const ReviewsSection: React.FC = () => {
   const reviews = [
     {
-      name: 'Sarah Chen',
+      name: 'Manvi Varshney',
       role: 'Staff Product Designer',
       company: 'Figma Community Member',
       avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=150&q=80',
       rating: 5,
-      content: 'I had been using FlowCV for years until they capped free downloads and locked features behind subscriptions. CVForge matches the design precision, runs 100% locally, and gives you total creative control.',
+      content: 'I had been using FlowCV for years until they capped free downloads and locked features behind subscriptions. PraZume matches the design precision, runs 100% locally, and gives you total creative control.',
     },
     {
-      name: 'Marcus Brody',
+      name: 'Ravi Verma',
       role: 'Senior Backend Engineer',
       company: 'Fintech Startup',
       avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80',
@@ -20,7 +20,7 @@ export const ReviewsSection: React.FC = () => {
       content: 'Zero tracking and zero server storage was the immediate selling point for me. My personal contact info and job history never hit a remote database. Plus the PDF export is crisp and ATS-compliant.',
     },
     {
-      name: 'Elena Rostova',
+      name: 'Jaish Jaiswal',
       role: 'Engineering Manager',
       company: 'Series B Scaleup',
       avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80',

@@ -73,14 +73,14 @@ export const Templates: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-indigo-50 border border-indigo-200/60 text-indigo-700 text-xs font-bold mb-4">
-            <Layout className="w-3.5 h-3.5 text-indigo-600" />
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-50 border border-purple-200/80 text-purple-700 text-[11px] font-sans font-bold tracking-widest uppercase mb-4">
+            <Layout className="w-3.5 h-3.5 text-purple-600" />
             <span>Curated Design Templates</span>
           </div>
-          <h2 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight">
-            Designed for Instant Recruiter Impact
+          <h2 className="text-3xl sm:text-5xl font-serif font-black text-slate-900 tracking-tight">
+            Designed for <span className="italic font-normal text-purple-600">Recruiter Impact</span>
           </h2>
-          <p className="mt-4 text-base sm:text-lg text-slate-600">
+          <p className="mt-4 text-base sm:text-lg text-slate-600 font-sans leading-relaxed">
             Every template is 100% customizable: change colors, fonts, margins, and column widths anytime in the live customizer.
           </p>
         </div>

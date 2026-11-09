@@ -41,10 +41,10 @@ export const Navbar: React.FC = () => {
             className="group text-left"
           >
             <div className="flex items-center gap-2">
-              <span className="text-2xl font-black tracking-tight text-slate-900 group-hover:text-brand-600 transition-colors">
-                PraZume
+              <span className="text-2xl font-serif font-black tracking-tight text-slate-900 group-hover:text-purple-700 transition-colors">
+                Pra<span className="italic font-normal text-purple-600">Zume</span>
               </span>
-              <span className="hidden sm:inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold tracking-wide uppercase bg-emerald-50 text-emerald-700 border border-emerald-200/80 shadow-xs">
+              <span className="hidden sm:inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-sans font-bold tracking-widest uppercase bg-emerald-50 text-emerald-700 border border-emerald-200/80 shadow-xs">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
                 100% Free & Open
               </span>

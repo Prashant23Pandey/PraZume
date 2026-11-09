@@ -40,6 +40,7 @@ export interface SkillItem {
   id: string;
   name: string;
   level: SkillLevel;
+  rating?: number; // 1 - 5
   category: string;
 }
 
@@ -59,18 +60,39 @@ export interface CustomSection {
 }
 
 export type TemplateId = 'classic' | 'modern' | 'minimal';
+export type ColumnLayout = 'single' | 'left-sidebar' | 'right-sidebar';
+export type HeaderAlignment = 'top-left' | 'top-center' | 'integrated';
 export type HeaderPosition = 'top' | 'left' | 'right';
-export type ColumnsCount = 1 | 2;
-export type FontFamily = 'Sans' | 'Serif' | 'Mono';
+export type FontFamily = 
+  | 'Lora'
+  | 'Source Serif Pro'
+  | 'Zilla Slab'
+  | 'PT Serif'
+  | 'Literata'
+  | 'EB Garamond'
+  | 'Crimson Pro'
+  | 'Cormorant Garamond'
+  | 'Playfair Display'
+  | 'Plus Jakarta Sans'
+  | 'Inter' 
+  | 'Roboto' 
+  | 'Merriweather' 
+  | 'Source Code Pro'
+  | 'Sans' 
+  | 'Serif' 
+  | 'Mono';
+
 export type PhotoShape = 'square' | 'rounded' | 'circle';
 export type LinkStyle = 'underlined' | 'colored' | 'plain';
 
 export interface CustomizationSettings {
   layout: {
     templateId: TemplateId;
-    headerPosition: HeaderPosition;
-    columns: ColumnsCount;
+    columnLayout: ColumnLayout;
+    columns: number; // 1 | 2
     leftColumnWidthPercent: number; // e.g. 35 -> 35% left, 65% right
+    headerAlignment: HeaderAlignment;
+    headerPosition: HeaderPosition;
   };
   typography: {
     fontFamily: FontFamily;
@@ -87,11 +109,13 @@ export interface CustomizationSettings {
     primaryColor: string;     // HEX e.g. '#2563eb'
     textColor: string;        // HEX e.g. '#1e293b'
     backgroundColor: string;  // HEX e.g. '#ffffff'
-    headerBgColor: string;    // HEX e.g. '#f8fafc'
+    sidebarBgColor: string;   // HEX e.g. '#f8fafc'
+    headerBgColor: string;    // HEX or 'transparent'
     showPhoto: boolean;
     photoShape: PhotoShape;
-    photoSize: number;        // px (e.g. 96)
+    photoSize: number;        // px (e.g. 80)
     linkStyle: LinkStyle;
+    showIcons: boolean;
   };
 }
 
@@ -103,5 +127,11 @@ export interface ResumeData {
   customSections: CustomSection[];
 }
 
-export type ActiveSection = 'personal' | 'experience' | 'education' | 'skills' | 'custom' | 'customizer';
-
+export type ActiveSection = 
+  | 'personal' 
+  | 'summary' 
+  | 'experience' 
+  | 'education' 
+  | 'skills' 
+  | 'custom' 
+  | 'customizer';

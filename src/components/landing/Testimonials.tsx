@@ -1,101 +1,94 @@
 import React from 'react';
-import { Star, Quote, Sparkles } from 'lucide-react';
+import { Star, Sparkles } from 'lucide-react';
 
 export const Testimonials: React.FC = () => {
-  const reviews = [
+  const stories = [
     {
-      name: 'Sarah Chen',
-      role: 'Staff Product Designer',
-      context: 'Landed job at San Francisco Unicorn',
+      quote: "I had been a loyal FlowCV user for 3 years until they placed downloads behind subscriptions. PraZume gives me the exact same typographic control, 2-column layout flexibility, and zero paywalls.",
+      author: "Manvi Varshney",
+      role: "Staff Product Designer",
+      badge: "Design Leader",
       rating: 5,
-      avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=160&q=80',
-      comment: 'I had been a loyal FlowCV user for 3 years until they placed downloads behind subscriptions. PraZume gives me the exact same level of typographic control, 2-column layout flexibility, and zero paywalls.',
-      badge: 'Design Leader',
     },
     {
-      name: 'Rohan Mehta',
-      role: 'Recent CS Graduate',
-      context: 'Hired as Junior SWE',
+      quote: "As a college student applying to 50+ internships, having to pay $19 just to download a revised PDF was infuriating. PraZume is lightning fast, 100% free, and helped me get my first offer in 2 weeks.",
+      author: "Ravi Verma",
+      role: "Recent CS Graduate",
+      badge: "Student / New Grad",
       rating: 5,
-      avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=160&q=80',
-      comment: 'As a college student applying to 50+ internships, having to pay $19 just to download a revised PDF was infuriating. PraZume is lightning fast, 100% free, and helped me get my first offer in 2 weeks.',
-      badge: 'Student / New Grad',
     },
     {
-      name: 'Elena Rostova',
-      role: 'Engineering Director',
-      context: 'Reviewed 400+ tech candidates',
+      quote: "The formatting on the Modern and Minimal templates is top-tier. ATS software parses the plaintext cleanly, and the JSON backup feature makes it trivial to store resumes in GitHub dotfiles.",
+      author: "Jaish Jaiswal",
+      role: "Engineering Director",
+      badge: "Hiring Manager",
       rating: 5,
-      avatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=160&q=80',
-      comment: 'The formatting on the Modern and Minimal templates is top-tier. ATS software parses the plaintext cleanly, and the JSON backup feature makes it trivial to store resumes in GitHub dotfiles.',
-      badge: 'Hiring Manager',
     },
     {
-      name: 'Devon Miller',
-      role: 'Cloud Infrastructure Architect',
-      context: 'Open-Source Contributor',
+      quote: "Zero telemetry and client-side only local storage. My personal phone number and career history are never stored in a corporate cloud database. Prashant built something truly remarkable here.",
+      author: "Prakhar Chaurasia",
+      role: "Cloud Infrastructure Architect",
+      badge: "Privacy Advocate",
       rating: 5,
-      avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=160&q=80',
-      comment: 'Zero telemetry and client-side only local storage. My personal phone number and career history are never stored in a corporate cloud database. Prashant built something truly remarkable here.',
-      badge: 'Privacy Advocate',
     },
   ];
 
   return (
-    <section className="py-20 sm:py-28 bg-white border-t border-slate-200/80">
+    <section className="py-20 sm:py-28 bg-[#fbf9fe] border-t border-purple-100/60">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-50 border border-amber-200/60 text-amber-800 text-xs font-bold mb-4">
-            <Sparkles className="w-3.5 h-3.5 text-amber-500" />
-            <span>Community Feedback</span>
+        {/* Section Header (Photo 1 Aesthetic: Student Stories) */}
+        <div className="text-center max-w-3xl mx-auto mb-14">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-100/60 border border-purple-200/80 text-purple-700 text-[11px] font-sans font-bold tracking-widest uppercase mb-4">
+            <Sparkles className="w-3.5 h-3.5 text-purple-600" />
+            <span>Community Voices</span>
           </div>
-          <h2 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight">
-            Loved by Students & Job Seekers Worldwide
+          <h2 className="text-4xl sm:text-6xl font-serif font-black text-slate-900 tracking-tight">
+            Student <span className="italic font-normal text-purple-600">Stories</span>
           </h2>
-          <p className="mt-4 text-base sm:text-lg text-slate-600">
-            Real feedback from professionals who took control of their job hunt without predatory subscriptions.
+          <p className="mt-4 text-base sm:text-lg text-slate-600 font-sans leading-relaxed">
+            Real experiences from students, career switchers, and engineers building job-winning resumes without subscription paywalls.
           </p>
         </div>
 
-        {/* Testimonials Grid */}
+        {/* Featured Hero Testimonial Card (Exact Photo 1 Styling) */}
+        <div className="max-w-3xl mx-auto mb-16">
+          <div className="bg-white rounded-[32px] sm:rounded-[40px] p-8 sm:p-14 shadow-xl border border-slate-100 text-center relative">
+            <p className="font-serif italic text-xl sm:text-2xl text-slate-800 leading-relaxed mb-6 font-normal">
+              "I have been using PraZume for my career applications for months now, and I myself have seen drastic changes in my confidence and interview callbacks."
+            </p>
+            <p className="font-sans text-xs sm:text-sm font-bold tracking-widest text-purple-600 uppercase">
+              - Krithvik Dixit
+            </p>
+          </div>
+        </div>
+
+        {/* Supporting Stories Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {reviews.map((rev, idx) => (
+          {stories.map((story, idx) => (
             <div
               key={idx}
-              className="p-6 rounded-3xl bg-slate-50 border border-slate-200/90 shadow-xs hover:shadow-lg hover:border-brand-300 hover:bg-white transition-all duration-300 flex flex-col justify-between"
+              className="p-6 sm:p-7 rounded-[28px] bg-white border border-purple-100/80 shadow-md hover:shadow-xl hover:border-purple-200 transition-all duration-300 flex flex-col justify-between"
             >
               <div>
-                {/* Rating stars & badge */}
                 <div className="flex items-center justify-between mb-4">
                   <div className="flex items-center gap-0.5">
-                    {[...Array(rev.rating)].map((_, i) => (
-                      <Star key={i} className="w-4 h-4 fill-amber-400 text-amber-400" />
+                    {[...Array(story.rating)].map((_, i) => (
+                      <Star key={i} className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
                     ))}
                   </div>
-                  <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-white text-slate-700 border border-slate-200">
-                    {rev.badge}
+                  <span className="text-[10px] font-sans font-bold px-2 py-0.5 rounded-full bg-purple-50 text-purple-700 border border-purple-200">
+                    {story.badge}
                   </span>
                 </div>
 
-                <Quote className="w-6 h-6 text-slate-300 mb-2" />
-                <p className="text-xs sm:text-sm text-slate-700 leading-relaxed italic mb-6">
-                  "{rev.comment}"
+                <p className="font-serif italic text-sm text-slate-700 leading-relaxed mb-6">
+                  "{story.quote}"
                 </p>
               </div>
 
-              {/* Author footer */}
-              <div className="pt-4 border-t border-slate-200/60 flex items-center gap-3">
-                <img
-                  src={rev.avatar}
-                  alt={rev.name}
-                  className="w-10 h-10 rounded-full object-cover ring-2 ring-white shadow-xs shrink-0"
-                />
-                <div className="min-w-0">
-                  <div className="text-xs font-bold text-slate-900 truncate">{rev.name}</div>
-                  <div className="text-[11px] text-slate-500 truncate">{rev.role}</div>
-                  <div className="text-[10px] text-brand-600 font-medium truncate">{rev.context}</div>
-                </div>
+              <div className="pt-4 border-t border-slate-100">
+                <div className="font-sans font-bold text-xs text-slate-900">{story.author}</div>
+                <div className="font-sans text-[11px] text-purple-600 font-medium">{story.role}</div>
               </div>
             </div>
           ))}

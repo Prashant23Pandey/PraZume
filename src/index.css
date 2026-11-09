@@ -5,7 +5,28 @@
 @layer base {
   html, body {
     @apply h-full antialiased text-slate-800 bg-slate-50;
+    font-family: 'Plus Jakarta Sans', 'Inter', system-ui, -apple-system, sans-serif;
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+
+  /* Headings default to Playfair Display */
+  h1, h2, h3, .font-display, .font-serif {
+    font-family: 'Playfair Display', Georgia, serif;
+  }
+
+  /* Cursive Script Accent */
+  .font-script {
+    font-family: 'Pinyon Script', 'Great Vibes', cursive;
+  }
+
+  /* Body & Interface Sans */
+  .font-sans {
+    font-family: 'Plus Jakarta Sans', 'Inter', system-ui, -apple-system, sans-serif;
+  }
+
+  /* Monospace */
+  .font-mono {
+    font-family: 'Source Code Pro', monospace;
   }
 
   /* Custom subtle scrollbars */

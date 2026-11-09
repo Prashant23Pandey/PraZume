@@ -11,9 +11,9 @@ export const MinimalTemplate: React.FC<TemplateProps> = ({ data, settings }) => 
   const { typography, spacing, styling } = settings;
 
   const fontClass =
-    typography.fontFamily === 'Serif'
+    typography.fontFamily === 'Playfair Display' || typography.fontFamily === 'Serif' || typography.fontFamily === 'Merriweather'
       ? 'font-serif'
-      : typography.fontFamily === 'Mono'
+      : typography.fontFamily === 'Source Code Pro' || typography.fontFamily === 'Mono'
       ? 'font-mono'
       : 'font-sans';
 

@@ -86,14 +86,14 @@ export const Features: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand-50 border border-brand-200/60 text-brand-700 text-xs font-bold mb-4">
-            <Sparkles className="w-3.5 h-3.5 text-brand-600" />
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-50 border border-purple-200/80 text-purple-700 text-[11px] font-sans font-bold tracking-widest uppercase mb-4">
+            <Sparkles className="w-3.5 h-3.5 text-purple-600" />
             <span>Honest, Transparent Engineering</span>
           </div>
-          <h2 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight">
-            Stop Paying for Download Buttons
+          <h2 className="text-3xl sm:text-5xl font-serif font-black text-slate-900 tracking-tight">
+            Stop Paying for <span className="italic font-normal text-purple-600">Download Buttons</span>
           </h2>
-          <p className="mt-4 text-base sm:text-lg text-slate-600">
+          <p className="mt-4 text-base sm:text-lg text-slate-600 font-sans leading-relaxed">
             Compare why thousands of developers, designers, and job seekers left subscription resume sites for our open, client-side studio.
           </p>
         </div>

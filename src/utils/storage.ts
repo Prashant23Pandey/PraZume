@@ -1,7 +1,7 @@
 import { ResumeData, CustomizationSettings } from '../types/resume';
-import { defaultResumeData, defaultCustomization } from './defaultData';
+import { defaultResumeData, emptyResumeData, defaultCustomization } from './defaultData';
 
-export const STORAGE_KEY = 'free_cv_builder_data';
+export const STORAGE_KEY = 'prazume_builder_state_v4';
 
 export interface StoredPayload {
   version: number;
@@ -12,31 +12,63 @@ export interface StoredPayload {
 
 export function loadSavedResume(): { resumeData: ResumeData; customization: CustomizationSettings } {
   try {
+    // Clear legacy keys if present
+    localStorage.removeItem('free_cv_builder_data');
+    localStorage.removeItem('prazume_builder_data_v2');
+    localStorage.removeItem('prazume_builder_data_v3');
+
     const raw = localStorage.getItem(STORAGE_KEY);
     if (!raw) {
-      return { resumeData: defaultResumeData, customization: defaultCustomization };
+      return { resumeData: emptyResumeData, customization: defaultCustomization };
     }
 
     const parsed = JSON.parse(raw);
+
+    // If the saved data has the sample/prefilled data from older runs, reset to empty
+    if (
+      parsed.resumeData?.personalDetails?.fullName === 'PRASHANT PANDEY' ||
+      parsed.resumeData?.personalDetails?.fullName?.toLowerCase().includes('alex vance')
+    ) {
+      localStorage.removeItem(STORAGE_KEY);
+      return { resumeData: emptyResumeData, customization: defaultCustomization };
+    }
+
     const resumeData: ResumeData = {
-      personalDetails: { ...defaultResumeData.personalDetails, ...(parsed.resumeData?.personalDetails || {}) },
-      workExperience: Array.isArray(parsed.resumeData?.workExperience) ? parsed.resumeData.workExperience : defaultResumeData.workExperience,
-      education: Array.isArray(parsed.resumeData?.education) ? parsed.resumeData.education : defaultResumeData.education,
-      skills: Array.isArray(parsed.resumeData?.skills) ? parsed.resumeData.skills : defaultResumeData.skills,
-      customSections: Array.isArray(parsed.resumeData?.customSections) ? parsed.resumeData.customSections : defaultResumeData.customSections,
+      personalDetails: { 
+        ...emptyResumeData.personalDetails, 
+        ...(parsed.resumeData?.personalDetails || {}),
+        photoUrl: parsed.resumeData?.personalDetails?.photoUrl || '',
+      },
+      workExperience: Array.isArray(parsed.resumeData?.workExperience) 
+        ? parsed.resumeData.workExperience 
+        : [],
+      education: Array.isArray(parsed.resumeData?.education) 
+        ? parsed.resumeData.education 
+        : [],
+      skills: Array.isArray(parsed.resumeData?.skills) 
+        ? parsed.resumeData.skills 
+        : [],
+      customSections: Array.isArray(parsed.resumeData?.customSections) 
+        ? parsed.resumeData.customSections 
+        : [],
     };
 
     const customization: CustomizationSettings = {
       layout: { ...defaultCustomization.layout, ...(parsed.customization?.layout || {}) },
       typography: { ...defaultCustomization.typography, ...(parsed.customization?.typography || {}) },
       spacing: { ...defaultCustomization.spacing, ...(parsed.customization?.spacing || {}) },
-      styling: { ...defaultCustomization.styling, ...(parsed.customization?.styling || {}) },
+      styling: { 
+        ...defaultCustomization.styling, 
+        ...(parsed.customization?.styling || {}),
+        headerBgColor: parsed.customization?.styling?.headerBgColor || '#000000',
+        showPhoto: true,
+      },
     };
 
     return { resumeData, customization };
   } catch (err) {
     console.error('Failed to load resume data from localStorage:', err);
-    return { resumeData: defaultResumeData, customization: defaultCustomization };
+    return { resumeData: emptyResumeData, customization: defaultCustomization };
   }
 }
 

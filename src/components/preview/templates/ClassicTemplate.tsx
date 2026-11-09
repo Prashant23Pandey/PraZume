@@ -11,9 +11,9 @@ export const ClassicTemplate: React.FC<TemplateProps> = ({ data, settings }) => 
   const { typography, spacing, styling } = settings;
 
   const fontClass =
-    typography.fontFamily === 'Sans'
+    typography.fontFamily === 'Sans' || typography.fontFamily === 'Inter' || typography.fontFamily === 'Roboto'
       ? 'font-sans'
-      : typography.fontFamily === 'Mono'
+      : typography.fontFamily === 'Source Code Pro' || typography.fontFamily === 'Mono'
       ? 'font-mono'
       : 'font-serif';
 

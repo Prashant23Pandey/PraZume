@@ -13,9 +13,9 @@ export const ModernTemplate: React.FC<TemplateProps> = ({ data, settings }) => {
 
   // Custom typography styles dynamically mapped
   const fontClass =
-    typography.fontFamily === 'Serif'
+    typography.fontFamily === 'Playfair Display' || typography.fontFamily === 'Serif' || typography.fontFamily === 'Merriweather'
       ? 'font-serif'
-      : typography.fontFamily === 'Mono'
+      : typography.fontFamily === 'Source Code Pro' || typography.fontFamily === 'Mono'
       ? 'font-mono'
       : 'font-sans';
 
