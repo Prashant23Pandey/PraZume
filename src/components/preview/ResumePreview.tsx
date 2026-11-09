@@ -118,13 +118,14 @@ ${edu.highlights.map((h) => `• ${h}`).join('\n')}`
         </div>
       </div>
 
-      {/* Live A4 Canvas Scaled Viewport */}
-      <div className="preview-wrapper flex-1 overflow-auto p-2 sm:p-4 flex items-start justify-center">
+      {/* Live A4 Canvas Scaled Viewport with generous bottom space */}
+      <div className="preview-wrapper flex-1 overflow-auto p-2 sm:p-4 pb-28 flex items-start justify-center">
         <div
-          className="transition-transform duration-150 origin-top shadow-2xl rounded-sm"
+          id="resume-canvas-scaler"
+          className="transition-transform duration-150 origin-top shadow-2xl rounded-sm pb-16"
           style={{
             transform: `scale(${scaleFactor})`,
-            marginBottom: `${(scaleFactor - 1) * 1122}px`,
+            marginBottom: `${Math.max((scaleFactor - 1) * 1122 + 80, 60)}px`,
           }}
         >
           <ResumeCanvas />

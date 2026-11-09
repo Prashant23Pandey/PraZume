@@ -12,7 +12,8 @@ import {
   ArrowLeft, 
   Loader2,
   Eye,
-  Edit3
+  Edit3,
+  Printer
 } from 'lucide-react';
 import { useResumeStore } from '../../context/ResumeContext';
 import { FlowContentPanel } from './FlowContentPanel';
@@ -224,6 +225,18 @@ export const BuilderLayout: React.FC = () => {
                   >
                     <Download className="w-3.5 h-3.5 text-slate-500" />
                     <span>Export JSON Backup</span>
+                  </button>
+
+                  <button
+                    onClick={() => {
+                      setIsMenuOpen(false);
+                      window.print();
+                    }}
+                    className="w-full px-3.5 py-2 text-left flex items-center gap-2 hover:bg-slate-50 text-slate-700"
+                    title="Print directly or save via browser vector PDF"
+                  >
+                    <Printer className="w-3.5 h-3.5 text-blue-600" />
+                    <span>Print / Save Vector PDF</span>
                   </button>
 
                   <button

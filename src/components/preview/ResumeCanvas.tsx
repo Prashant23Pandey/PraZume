@@ -53,11 +53,11 @@ export const ResumeCanvas: React.FC = () => {
   // Section Heading Component (FlowCV Banner Style as in Reference Photo 1)
   const SectionHeader: React.FC<{ title: string; icon?: React.ReactNode }> = ({ title, icon }) => (
     <div
-      className="py-1 px-3 mb-2.5 rounded bg-[#e2e8f0] text-slate-900 flex items-center justify-center gap-2 border border-slate-300/40"
+      className="section-header-block page-break-avoid py-1 px-3 mb-2.5 rounded bg-[#e2e8f0] text-slate-900 flex items-center justify-center border border-slate-300/40"
     >
-      {icon && <span className="text-slate-800 text-xs">{icon}</span>}
+      {icon && <span className="mr-2 text-slate-800 text-xs shrink-0">{icon}</span>}
       <h2
-        className="font-bold tracking-widest uppercase font-serif"
+        className="font-bold tracking-wider uppercase font-serif"
         style={{
           fontSize: `${typography.headingFontSize}pt`,
           color: '#0f172a',
@@ -71,7 +71,7 @@ export const ResumeCanvas: React.FC = () => {
   // Professional Summary Component
   const renderSummary = () =>
     personalDetails.summary ? (
-      <section style={{ marginBottom: `${spacing.spaceBetweenSections}px` }} className="page-break-avoid">
+      <section style={{ marginBottom: `${spacing.spaceBetweenSections}px` }} className="resume-section-block page-break-avoid">
         <SectionHeader title="Summary" icon="📇" />
         <p className="leading-relaxed text-slate-700 text-xs sm:text-[13px]">{personalDetails.summary}</p>
       </section>
@@ -80,23 +80,23 @@ export const ResumeCanvas: React.FC = () => {
   // Experience Entries
   const renderExperience = () =>
     workExperience.length > 0 ? (
-      <section style={{ marginBottom: `${spacing.spaceBetweenSections}px` }}>
+      <section style={{ marginBottom: `${spacing.spaceBetweenSections}px` }} className="resume-section-block">
         <SectionHeader title="Work Experience" icon="💼" />
         <div className="space-y-3.5">
           {workExperience.map((exp) => (
-            <div key={exp.id} className="page-break-avoid">
-              <div className="flex items-baseline justify-between gap-2">
-                <span className="font-bold text-slate-900">{exp.position}</span>
-                <span className="text-xs font-mono text-slate-500 whitespace-nowrap">
+            <div key={exp.id} className="resume-entry-block page-break-avoid">
+              <div className="flex items-baseline justify-between mb-0.5">
+                <span className="font-bold text-slate-900 pr-3">{exp.position}</span>
+                <span className="text-xs font-mono text-slate-500 whitespace-nowrap shrink-0 ml-auto">
                   {exp.startDate} {exp.startDate && (exp.endDate || exp.current) ? '—' : ''}{' '}
                   {exp.current ? 'Present' : exp.endDate}
                 </span>
               </div>
-              <div className="flex items-baseline justify-between gap-2 text-xs text-slate-600 mb-1">
-                <span className="font-semibold italic" style={{ color: styling.primaryColor || '#0f172a' }}>
+              <div className="flex items-baseline justify-between text-xs text-slate-600 mb-1">
+                <span className="font-semibold italic pr-3" style={{ color: styling.primaryColor || '#0f172a' }}>
                   {exp.company}
                 </span>
-                {exp.location && <span className="text-slate-400 italic">{exp.location}</span>}
+                {exp.location && <span className="text-slate-400 italic shrink-0 ml-auto">{exp.location}</span>}
               </div>
               {exp.highlights.length > 0 && (
                 <ul className="list-disc list-outside ml-4 space-y-1 text-slate-700 text-xs">
@@ -118,24 +118,24 @@ export const ResumeCanvas: React.FC = () => {
   // Education Entries
   const renderEducation = () =>
     education.length > 0 ? (
-      <section style={{ marginBottom: `${spacing.spaceBetweenSections}px` }}>
+      <section style={{ marginBottom: `${spacing.spaceBetweenSections}px` }} className="resume-section-block">
         <SectionHeader title="Educational History" icon="🎓" />
         <div className="space-y-3">
           {education.map((edu) => (
-            <div key={edu.id} className="page-break-avoid">
-              <div className="flex items-baseline justify-between gap-2">
-                <span className="font-bold text-slate-900">
+            <div key={edu.id} className="resume-entry-block page-break-avoid">
+              <div className="flex items-baseline justify-between mb-0.5">
+                <span className="font-bold text-slate-900 pr-3">
                   {edu.degree} {edu.fieldOfStudy ? `in ${edu.fieldOfStudy}` : ''}
                 </span>
-                <span className="text-xs font-mono text-slate-500 whitespace-nowrap">
+                <span className="text-xs font-mono text-slate-500 whitespace-nowrap shrink-0 ml-auto">
                   {edu.startDate} {edu.startDate && edu.endDate ? '—' : ''} {edu.endDate}
                 </span>
               </div>
-              <div className="flex items-baseline justify-between gap-2 text-xs text-slate-600">
-                <span className="font-semibold" style={{ color: styling.primaryColor }}>
+              <div className="flex items-baseline justify-between text-xs text-slate-600">
+                <span className="font-semibold pr-3" style={{ color: styling.primaryColor }}>
                   {edu.institution}
                 </span>
-                {edu.location && <span className="text-slate-400">{edu.location}</span>}
+                {edu.location && <span className="text-slate-400 shrink-0 ml-auto">{edu.location}</span>}
               </div>
               {edu.gpa && (
                 <div className="text-[11px] text-slate-500 mt-0.5">
@@ -156,13 +156,13 @@ export const ResumeCanvas: React.FC = () => {
   // Skills & Languages
   const renderSkills = () =>
     skills.length > 0 ? (
-      <section style={{ marginBottom: `${spacing.spaceBetweenSections}px` }} className="page-break-avoid">
+      <section style={{ marginBottom: `${spacing.spaceBetweenSections}px` }} className="resume-section-block page-break-avoid">
         <SectionHeader title="Relevant Skills" icon="🧠" />
-        <div className="flex flex-wrap gap-1.5">
+        <div className="flex flex-wrap">
           {skills.map((skill) => (
             <span
               key={skill.id}
-              className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-slate-100 text-slate-800 border border-slate-200"
+              className="mr-1.5 mb-1.5 inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-slate-100 text-slate-800 border border-slate-200"
             >
               {skill.name}
               {skill.level && (
@@ -177,22 +177,22 @@ export const ResumeCanvas: React.FC = () => {
   // Custom Sections
   const renderCustomSections = () =>
     customSections.map((sec) => (
-      <section key={sec.id} style={{ marginBottom: `${spacing.spaceBetweenSections}px` }}>
+      <section key={sec.id} style={{ marginBottom: `${spacing.spaceBetweenSections}px` }} className="resume-section-block">
         <SectionHeader title={sec.title || 'Custom Section'} icon="📂" />
         <div className="space-y-3">
           {sec.entries.map((ent) => (
-            <div key={ent.id} className="page-break-avoid text-xs">
-              <div className="flex items-baseline justify-between gap-2">
-                <span className="font-bold text-slate-900">{ent.title}</span>
-                {ent.date && <span className="font-mono text-slate-500 text-[11px]">{ent.date}</span>}
+            <div key={ent.id} className="resume-entry-block page-break-avoid text-xs">
+              <div className="flex items-baseline justify-between mb-0.5">
+                <span className="font-bold text-slate-900 pr-3">{ent.title}</span>
+                {ent.date && <span className="font-mono text-slate-500 text-[11px] shrink-0 ml-auto">{ent.date}</span>}
               </div>
-              <div className="flex items-baseline justify-between gap-2 text-slate-600 mb-0.5">
+              <div className="flex items-baseline justify-between text-slate-600 mb-0.5">
                 {ent.subtitle && (
-                  <span className="font-medium" style={{ color: styling.primaryColor }}>
+                  <span className="font-medium pr-3" style={{ color: styling.primaryColor }}>
                     {ent.subtitle}
                   </span>
                 )}
-                {ent.location && <span className="text-slate-400 italic">{ent.location}</span>}
+                {ent.location && <span className="text-slate-400 italic shrink-0 ml-auto">{ent.location}</span>}
               </div>
               {ent.description && (
                 <p className="text-slate-700 leading-relaxed">{ent.description}</p>
@@ -226,40 +226,40 @@ export const ResumeCanvas: React.FC = () => {
           layout.headerAlignment === 'top-center' ? 'text-center' : 'text-left'
         }`}
       >
-        <div className={`flex flex-wrap items-center gap-x-4 gap-y-1.5 ${layout.headerAlignment === 'top-center' ? 'justify-center' : 'justify-start'}`}>
+        <div className={`flex flex-wrap items-center ${layout.headerAlignment === 'top-center' ? 'justify-center' : 'justify-start'}`}>
           {personalDetails.email && (
-            <span className="inline-flex items-center gap-1.5">
-              {styling.showIcons && <Mail className={`w-3.5 h-3.5 ${isDarkHeader ? 'text-slate-300' : 'text-slate-400'}`} />}
+            <span className="inline-flex items-center mr-4 mb-1.5">
+              {styling.showIcons && <Mail className={`w-3.5 h-3.5 mr-1.5 shrink-0 ${isDarkHeader ? 'text-slate-300' : 'text-slate-400'}`} />}
               <span>{personalDetails.email}</span>
             </span>
           )}
           {personalDetails.phone && (
-            <span className="inline-flex items-center gap-1.5">
-              {styling.showIcons && <Phone className={`w-3.5 h-3.5 ${isDarkHeader ? 'text-slate-300' : 'text-slate-400'}`} />}
+            <span className="inline-flex items-center mr-4 mb-1.5">
+              {styling.showIcons && <Phone className={`w-3.5 h-3.5 mr-1.5 shrink-0 ${isDarkHeader ? 'text-slate-300' : 'text-slate-400'}`} />}
               <span>{personalDetails.phone}</span>
             </span>
           )}
           {personalDetails.location && (
-            <span className="inline-flex items-center gap-1.5">
-              {styling.showIcons && <MapPin className={`w-3.5 h-3.5 ${isDarkHeader ? 'text-slate-300' : 'text-slate-400'}`} />}
+            <span className="inline-flex items-center mr-4 mb-1.5">
+              {styling.showIcons && <MapPin className={`w-3.5 h-3.5 mr-1.5 shrink-0 ${isDarkHeader ? 'text-slate-300' : 'text-slate-400'}`} />}
               <span>{personalDetails.location}</span>
             </span>
           )}
           {personalDetails.linkedin && (
-            <span className="inline-flex items-center gap-1.5">
-              {styling.showIcons && <Linkedin className={`w-3.5 h-3.5 ${isDarkHeader ? 'text-slate-300' : 'text-slate-400'}`} />}
+            <span className="inline-flex items-center mr-4 mb-1.5">
+              {styling.showIcons && <Linkedin className={`w-3.5 h-3.5 mr-1.5 shrink-0 ${isDarkHeader ? 'text-slate-300' : 'text-slate-400'}`} />}
               <span>{personalDetails.linkedin.replace(/^https?:\/\/(www\.)?/, '')}</span>
             </span>
           )}
           {personalDetails.website && (
-            <span className="inline-flex items-center gap-1.5">
-              {styling.showIcons && <Globe className={`w-3.5 h-3.5 ${isDarkHeader ? 'text-slate-300' : 'text-slate-400'}`} />}
+            <span className="inline-flex items-center mr-4 mb-1.5">
+              {styling.showIcons && <Globe className={`w-3.5 h-3.5 mr-1.5 shrink-0 ${isDarkHeader ? 'text-slate-300' : 'text-slate-400'}`} />}
               <span>{personalDetails.website.replace(/^https?:\/\//, '')}</span>
             </span>
           )}
           {personalDetails.github && (
-            <span className="inline-flex items-center gap-1.5">
-              {styling.showIcons && <Github className={`w-3.5 h-3.5 ${isDarkHeader ? 'text-slate-300' : 'text-slate-400'}`} />}
+            <span className="inline-flex items-center mr-4 mb-1.5">
+              {styling.showIcons && <Github className={`w-3.5 h-3.5 mr-1.5 shrink-0 ${isDarkHeader ? 'text-slate-300' : 'text-slate-400'}`} />}
               <span>{personalDetails.github.replace(/^https?:\/\/(www\.)?github\.com\//, 'github.com/')}</span>
             </span>
           )}
@@ -281,6 +281,7 @@ export const ResumeCanvas: React.FC = () => {
           color: styling.textColor,
           backgroundColor: styling.backgroundColor,
           padding: `${spacing.pageMargins}mm`,
+          paddingBottom: `${Math.max(spacing.pageMargins, 14) + 8}mm`,
         }}
       >
         {/* Semantic Header (Full-width Dark Banner like Reference Photo 1) */}
@@ -310,10 +311,12 @@ export const ResumeCanvas: React.FC = () => {
             {/* Header Text */}
             <div className="flex-1">
               <h1
-                className="font-black tracking-tight"
+                className="font-black tracking-normal"
                 style={{
                   fontSize: `${typography.nameFontSize}pt`,
                   color: isDarkHeader ? '#ffffff' : styling.primaryColor,
+                  lineHeight: 1.15,
+                  marginBottom: '4px',
                 }}
               >
                 {personalDetails.fullName || (
@@ -376,8 +379,8 @@ export const ResumeCanvas: React.FC = () => {
           </div>
         ) : layout.columnLayout === 'right-sidebar' ? (
           /* Two Column with Right Sidebar */
-          <div className="flex gap-6">
-            <div style={{ width: `${100 - layout.leftColumnWidthPercent}%` }} className="flex-1 space-y-2">
+          <div className="flex">
+            <div style={{ width: `${100 - layout.leftColumnWidthPercent}%`, paddingRight: '20px' }} className="flex-1 space-y-2">
               {renderSummary()}
               {renderExperience()}
               {renderCustomSections()}
@@ -395,11 +398,12 @@ export const ResumeCanvas: React.FC = () => {
           </div>
         ) : (
           /* Two Column with Left Sidebar (Default) */
-          <div className="flex gap-6">
+          <div className="flex">
             <aside
               style={{
                 width: `${layout.leftColumnWidthPercent}%`,
                 backgroundColor: styling.sidebarBgColor || 'transparent',
+                paddingRight: '20px',
               }}
               className="shrink-0 space-y-2 p-2.5 rounded-xl"
             >
@@ -430,7 +434,7 @@ export const ResumeCanvas: React.FC = () => {
 
       {/* Page Break Visualizer Guide (Shows exact A4 297mm height boundary) */}
       <div
-        className="absolute left-0 right-0 pointer-events-none z-20 flex items-center justify-between px-4 border-b-2 border-dashed border-rose-400/80 text-[10px] font-mono text-rose-500 font-bold uppercase tracking-wider"
+        className="page-boundary-guide absolute left-0 right-0 pointer-events-none z-20 flex items-center justify-between px-4 border-b-2 border-dashed border-rose-400/80 text-[10px] font-mono text-rose-500 font-bold uppercase tracking-wider"
         style={{ top: '297mm' }}
       >
         <span className="bg-white/90 px-2 py-0.5 rounded shadow-xs">

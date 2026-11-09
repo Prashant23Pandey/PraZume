@@ -52,6 +52,12 @@
   background-color: #ffffff;
 }
 
+#resume-preview-canvas {
+  font-feature-settings: normal !important;
+  letter-spacing: normal !important;
+  word-spacing: normal !important;
+}
+
 /* Print Rules - Hide all navigation, sidebars, buttons and display only the clean resume */
 @media print {
   @page {
@@ -67,8 +73,14 @@
     print-color-adjust: exact !important;
   }
 
-  /* Hide entire UI except resume preview canvas */
-  header, nav, aside, footer, .no-print, button, .canvas-toolbar, .builder-sidebar {
+  /* Reset any scaling in print mode so it prints at 100% full A4 resolution */
+  #resume-canvas-scaler {
+    transform: none !important;
+    margin-bottom: 0 !important;
+  }
+
+  /* Hide entire UI and page break guide during print */
+  header, nav, aside, footer, .no-print, button, .canvas-toolbar, .builder-sidebar, .page-boundary-guide {
     display: none !important;
   }
 
